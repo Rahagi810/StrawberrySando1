@@ -33,6 +33,16 @@ body {
 /* ------------------------------------------- */
 /* ANIMASI PEMBUKA (INTRO) - MOBILE */
 /* ------------------------------------------- */
+/* Pastikan CSS ini ada di style.css */
+#intro-animation {
+    /* ... kode lain ... */
+    z-index: 1000;
+    /* INI KRUSIAL: Opacity awal harus 1 agar bisa transisi ke 0 */
+    opacity: 1; 
+    /* INI KRUSIAL: Transisi opacity harus didefinisikan */
+    transition: opacity 1s ease-out; 
+    pointer-events: none;
+}
 #intro-animation {
     position: fixed;
     top: 0;
@@ -380,3 +390,4 @@ main {
         font-size: 1.1rem;
     }
 }
+
