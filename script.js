@@ -1,18 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------
-    // 1. Animasi Intro Strawberry
+    // 1. Animasi Intro Strawberry (DIFIX)
     // -------------------------------------------
     const introAnimation = document.getElementById('intro-animation');
 
-    // Menghilangkan animasi setelah 1 detik
+    // Durasi Transisi CSS adalah 1000ms (1 detik).
+    const fadeDuration = 1000;
+    
+    // 1. Mulai Fade-out setelah 1000ms (1 detik)
     setTimeout(() => {
         introAnimation.style.opacity = '0'; 
-    }, 1000); 
+    }, fadeDuration); 
 
-    // Menghilangkan elemen dari DOM setelah fade-out selesai
+    // 2. Sembunyikan elemen (display: none) setelah DURASI TRANSISI CSS + 200ms
+    // Total waktu tunggu: 1000ms (goyang) + 1000ms (fade) + 200ms (buffer) = 2200ms
     setTimeout(() => {
         introAnimation.style.display = 'none';
-    }, 2000); 
+    }, fadeDuration + fadeDuration + 200); // TOTAL 2.2 DETIK
+    // Penjelasan: 
+    // - Animasi goyang berjalan selama 1 detik (di setTimeout pertama)
+    // - Animasi fade berjalan selama 1 detik (di CSS)
+    // - Diberi buffer 200ms untuk memastikan transisi selesai sebelum dihilangkan.
 
 
     // -------------------------------------------
@@ -20,16 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------
     const items = document.querySelectorAll('.hidden-item');
     
-    // Opsi untuk observer (trigger saat elemen 20% terlihat)
     const observerOptions = {
-        root: null, // viewport
-        threshold: 0.2 // 20% visibilitas
+        root: null, 
+        threshold: 0.2
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Tambahkan kelas 'visible' untuk memicu transisi CSS
                 entry.target.classList.add('visible');
             }
         });
@@ -43,13 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Logika Harga Diskon
     // -------------------------------------------
     window.applyDiscount = function() {
-        const originalPrice = document.getElementById('original-price');
-        const discountPrice = document.getElementById('discount-price');
-        
-        // Cukup tampilkan notifikasi karena tampilan diskon sudah aktif
         alert('🎉 Harga Spesial Pembukaan! Dapatkan Strawberry Sando hanya Rp10.000!');
     }
-});
-
-
 });
