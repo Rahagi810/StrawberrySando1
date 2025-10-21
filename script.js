@@ -1,33 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------
-    // 1. Animasi Intro Strawberry (DIFIX MENGGUNAKAN TRANSITIONEND) 🍓
+    // 1. Animasi Intro Strawberry (FINAL FIX) 🍓
     // -------------------------------------------
     const introAnimation = document.getElementById('intro-animation');
 
-    // Durasi goyang sebelum fade-out (dipertahankan agar tetap bergoyang 1 detik)
-    const bounceDuration = 1000;
+    // Durasi total animasi goyang + transisi fade
+    const totalAnimationDuration = 2200; // 2.2 detik (Cukup panjang untuk memastikan selesai)
 
-    // Fungsi yang akan dijalankan setelah animasi fade-out selesai
-    const removeIntro = () => {
-        // Hapus elemen dari DOM agar tidak menghalangi interaksi
-        introAnimation.style.display = 'none';
-        
-        // Hapus listener ini setelah selesai agar tidak boros memori
-        introAnimation.removeEventListener('transitionend', removeIntro);
-    };
-
-    // 1. Tambahkan listener yang mendeteksi kapan transisi opacity selesai
-    introAnimation.addEventListener('transitionend', removeIntro);
-
-    // 2. Tunggu 1 detik (bounceDuration) lalu mulai fade-out
+    // 1. Mulai Fade-out setelah 1000ms (1 detik goyang)
     setTimeout(() => {
-        // Mulai transisi fade-out (opacity: 0)
+        // Ini memicu transisi opacity 1s di CSS
         introAnimation.style.opacity = '0'; 
-    }, bounceDuration);
+    }, 1000); 
+
+    // 2. Menghilangkan elemen secara total setelah semua animasi selesai
+    setTimeout(() => {
+        // Cek kembali apakah opacity sudah 0 sebelum display: none
+        if (introAnimation.style.opacity === '0') {
+            introAnimation.style.display = 'none';
+            // Opsional: Hentikan animasi goyang agar tidak boros sumber daya
+            document.querySelector('#intro-animation .strawberry-emoji').style.animation = 'none';
+        }
+    }, totalAnimationDuration); // 2.2 detik (1s goyang + 1s fade + 0.2s buffer)
 
 
     // -------------------------------------------
-    // 2. Pop-up Gambar Saat Scroll (Intersection Observer)
+    // 2. Pop-up Gambar Saat Scroll
     // -------------------------------------------
     const items = document.querySelectorAll('.hidden-item');
     
@@ -55,5 +53,3 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('🎉 Harga Spesial Pembukaan! Dapatkan Strawberry Sando hanya Rp10.000!');
     }
 });
-});
-
