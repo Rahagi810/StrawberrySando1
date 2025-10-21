@@ -1,26 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------
-    // 1. Animasi Intro Strawberry (DIFIX)
+    // 1. Animasi Intro Strawberry (DIFIX MENGGUNAKAN TRANSITIONEND) 🍓
     // -------------------------------------------
     const introAnimation = document.getElementById('intro-animation');
 
-    // Durasi Transisi CSS adalah 1000ms (1 detik).
-    const fadeDuration = 1000;
-    
-    // 1. Mulai Fade-out setelah 1000ms (1 detik)
-    setTimeout(() => {
-        introAnimation.style.opacity = '0'; 
-    }, fadeDuration); 
+    // Durasi goyang sebelum fade-out (dipertahankan agar tetap bergoyang 1 detik)
+    const bounceDuration = 1000;
 
-    // 2. Sembunyikan elemen (display: none) setelah DURASI TRANSISI CSS + 200ms
-    // Total waktu tunggu: 1000ms (goyang) + 1000ms (fade) + 200ms (buffer) = 2200ms
-    setTimeout(() => {
+    // Fungsi yang akan dijalankan setelah animasi fade-out selesai
+    const removeIntro = () => {
+        // Hapus elemen dari DOM agar tidak menghalangi interaksi
         introAnimation.style.display = 'none';
-    }, fadeDuration + fadeDuration + 200); // TOTAL 2.2 DETIK
-    // Penjelasan: 
-    // - Animasi goyang berjalan selama 1 detik (di setTimeout pertama)
-    // - Animasi fade berjalan selama 1 detik (di CSS)
-    // - Diberi buffer 200ms untuk memastikan transisi selesai sebelum dihilangkan.
+        
+        // Hapus listener ini setelah selesai agar tidak boros memori
+        introAnimation.removeEventListener('transitionend', removeIntro);
+    };
+
+    // 1. Tambahkan listener yang mendeteksi kapan transisi opacity selesai
+    introAnimation.addEventListener('transitionend', removeIntro);
+
+    // 2. Tunggu 1 detik (bounceDuration) lalu mulai fade-out
+    setTimeout(() => {
+        // Mulai transisi fade-out (opacity: 0)
+        introAnimation.style.opacity = '0'; 
+    }, bounceDuration);
 
 
     // -------------------------------------------
@@ -52,3 +55,5 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('🎉 Harga Spesial Pembukaan! Dapatkan Strawberry Sando hanya Rp10.000!');
     }
 });
+});
+
