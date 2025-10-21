@@ -1,12 +1,12 @@
 /* Variabel Warna */
 :root {
-    --pink-light: #fff0f5; 
-    --pink-main: #ffccd5;  
-    --red-main: #ff698d;   
-    --red-dark: #cc3366;   
-    --text-dark: #4a192c;  
+    --pink-light: #fff0f5; /* Merah muda sangat lembut, hampir putih */
+    --pink-main: #ffccd5;  /* Merah muda cerah untuk gradasi */
+    --red-main: #ff698d;   /* Merah strawberry yang lebih ceria */
+    --red-dark: #cc3366;   /* Merah tua untuk teks */
+    --text-dark: #4a192c;  /* Warna teks yang lebih gelap dari skema */
     --text-light: #fff;
-    --strawberry-seed-color: rgba(200, 50, 80, 0.1); 
+    --strawberry-seed-color: rgba(200, 50, 80, 0.1); /* Warna bintik biji */
 }
 
 * {
@@ -15,41 +15,30 @@
     padding: 0;
 }
 
-/* GAYA DASAR (DEFAULT MOBILE) */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: 
         radial-gradient(circle at top left, var(--pink-main) 0%, transparent 70%),
         radial-gradient(circle at bottom right, var(--pink-light) 0%, transparent 70%),
-        repeating-radial-gradient(circle at center, var(--strawberry-seed-color) 0%, var(--strawberry-seed-color) 2px, transparent 3px, transparent 20px); 
-    background-color: var(--pink-light); 
-    background-size: cover, cover, 40px 40px; 
+        repeating-radial-gradient(circle at center, var(--strawberry-seed-color) 0%, var(--strawberry-seed-color) 2px, transparent 3px, transparent 20px); /* Corak bintik biji */
+    background-color: var(--pink-light); /* Fallback dan warna dasar */
+    background-size: cover, cover, 40px 40px; /* Ukuran untuk bintik */
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     position: relative;
 }
 
 /* ------------------------------------------- */
-/* ANIMASI PEMBUKA (INTRO) - MOBILE */
+/* ANIMASI PEMBUKA (INTRO) */
 /* ------------------------------------------- */
-/* Pastikan CSS ini ada di style.css */
-#intro-animation {
-    /* ... kode lain ... */
-    z-index: 1000;
-    /* INI KRUSIAL: Opacity awal harus 1 agar bisa transisi ke 0 */
-    opacity: 1; 
-    /* INI KRUSIAL: Transisi opacity harus didefinisikan */
-    transition: opacity 1s ease-out; 
-    pointer-events: none;
-}
 #intro-animation {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--pink-main) 0%, var(--red-main) 100%);
+    background: linear-gradient(135deg, var(--pink-main) 0%, var(--red-main) 100%); /* Gradasi di intro */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,127 +48,132 @@ body {
 }
 
 #intro-animation .strawberry-emoji {
-    font-size: 20vw; /* Lebih besar di HP agar menonjol */
+    font-size: 15vw;
     animation: bounce 0.5s infinite alternate;
 }
 
 @keyframes bounce {
     0% { transform: scale(1) rotate(-5deg); }
-    100% { transform: scale(1.1) rotate(5deg); } 
+    100% { transform: scale(1.1) rotate(5deg); } /* Efek goyang lebih lucu */
 }
 
 /* ------------------------------------------- */
-/* HIASAN EMOJI MELAYANG - MOBILE */
+/* HIASAN EMOJI MELAYANG */
 /* ------------------------------------------- */
 .floating-emoji {
     position: absolute;
-    font-size: 20px; /* Ukuran kecil agar tidak menutupi konten di HP */
-    opacity: 0.7;
+    font-size: 30px;
+    opacity: 0.8;
     z-index: -1;
     pointer-events: none;
     animation: float 15s ease-in-out infinite;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
 }
 
 .floating-emoji.close {
-    font-size: 35px;
-    opacity: 0.8;
+    font-size: 50px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 150, 0.6)); /* Bayangan pink */
+    animation-duration: 10s;
 }
 
-/* Posisi emoji yang lebih rapat untuk layar HP */
-.floating-emoji:nth-child(2) { top: 5%; left: 5%; animation-delay: 0s; transform: rotate(15deg); }
-.floating-emoji:nth-child(3) { top: 15%; right: 5%; animation-delay: 3s; transform: rotate(-20deg); }
-.floating-emoji:nth-child(4) { bottom: 10%; left: 5%; animation-delay: 6s; }
-.floating-emoji:nth-child(5) { top: 30%; right: 3%; animation-delay: 9s; }
-.floating-emoji:nth-child(6) { top: 50%; left: 3%; animation-delay: 12s; }
+/* Posisi emoji, bisa diatur ulang agar lebih menyebar dan acak */
+.floating-emoji:nth-child(2) { top: 8%; left: 8%; animation-delay: 0s; transform: rotate(15deg); }
+.floating-emoji:nth-child(3) { top: 25%; right: 10%; font-size: 25px; animation-delay: 3s; transform: rotate(-20deg); }
+.floating-emoji:nth-child(4) { bottom: 15%; left: 15%; animation-delay: 6s; transform: rotate(10deg); }
+.floating-emoji:nth-child(5) { top: 40%; right: 8%; animation-delay: 9s; transform: rotate(-5deg); }
+.floating-emoji:nth-child(6) { top: 60%; left: 5%; font-size: 40px; animation-delay: 12s; transform: rotate(25deg); }
+
 
 @keyframes float {
     0% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(15px, 20px) rotate(8deg); }
-    66% { transform: translate(-5px, -15px) rotate(-6deg); }
+    33% { transform: translate(20px, 30px) rotate(10deg); }
+    66% { transform: translate(-10px, -20px) rotate(-8deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 
 /* ------------------------------------------- */
-/* HEADER & JUDUL UTAMA - MOBILE */
+/* HEADER & JUDUL UTAMA */
 /* ------------------------------------------- */
 .hero-section {
-    background: linear-gradient(45deg, var(--red-main) 0%, var(--pink-main) 100%);
+    background: linear-gradient(45deg, var(--red-main) 0%, var(--pink-main) 100%); /* Gradasi di header */
     color: var(--text-light);
-    padding: 8vh 15px; /* Padding lebih kecil */
+    padding: 10vh 20px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-    border-bottom-left-radius: 40% 15%; 
-    border-bottom-right-radius: 40% 15%;
-    margin-bottom: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
+    border-bottom-left-radius: 50% 20%; /* Bentuk melengkung unik */
+    border-bottom-right-radius: 50% 20%;
+    margin-bottom: 30px;
 }
 
 .main-title {
-    font-size: 10vw; /* Ukuran besar responsif untuk HP */
-    margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    font-weight: 800;
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Bayangan lebih nyata */
+    font-weight: 800; /* Lebih tebal */
 }
 
 .tagline {
-    font-size: 4vw; /* Lebih kecil */
+    font-size: clamp(1.1rem, 3.5vw, 1.8rem);
     font-style: italic;
     font-weight: 400;
     opacity: 0.9;
 }
 
 /* ------------------------------------------- */
-/* BAGIAN UTAMA (MAIN) - MOBILE */
+/* BAGIAN UTAMA (MAIN) */
 /* ------------------------------------------- */
 main {
-    max-width: 100%; /* Lebar penuh di HP */
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 20px;
 }
 
 .section-title {
     color: var(--red-dark);
     text-align: center;
-    margin: 40px 0 15px;
-    font-size: 6.5vw;
+    margin: 60px 0 25px; /* Margin lebih besar */
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .info-section p {
     text-align: center;
-    margin: 15px auto;
-    max-width: 90%;
-    font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.7); 
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+    max-width: 700px;
+    font-size: 1.15rem;
+    background-color: rgba(255, 255, 255, 0.7); /* Background transparan agar bintik terlihat */
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 /* ------------------------------------------- */
-/* SHOWCASE PRODUK (POP-UP ON SCROLL) - MOBILE */
+/* SHOWCASE PRODUK (POP-UP ON SCROLL) */
 /* ------------------------------------------- */
 .product-showcase {
     display: flex;
-    flex-direction: column; /* Stack vertikal untuk HP */
+    flex-direction: column;
     align-items: center;
-    padding: 40px 0;
-    gap: 40px;
+    padding: 70px 0; /* Padding lebih besar */
+    gap: 60px; /* Jarak antar item */
 }
 
 .product-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%; 
-    max-width: 350px;
+    text-align: center;
+    width: 90%;
+    max-width: 380px; /* Sedikit lebih besar */
     opacity: 0;
-    transform: translateY(50px) scale(0.95);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    background-color: rgba(255, 255, 255, 0.85); 
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(70px) scale(0.9); /* Efek masuk dengan sedikit scaling */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* Transisi lebih lambat */
+    background-color: rgba(255, 255, 255, 0.85); /* Background untuk item */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .product-item.visible {
@@ -188,206 +182,166 @@ main {
 }
 
 .circular-image {
-    width: 220px; /* Ukuran presisi untuk HP */
-    height: 220px;
+    width: 280px; /* Ukuran gambar lebih besar */
+    height: 280px;
     object-fit: cover;
     border-radius: 50%;
-    border: 7px solid var(--red-main); 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border: 10px solid var(--red-main); /* Border lebih tebal */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
     transition: transform 0.3s ease;
 }
 
 .circular-image:hover {
-    transform: scale(1.03) rotate(3deg); 
+    transform: scale(1.03) rotate(3deg); /* Efek hover */
 }
 
 .product-item p {
-    margin-top: 15px;
+    margin-top: 20px;
     font-weight: bold;
     color: var(--red-dark);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Penempatan di HP: Rapi di tengah */
-.item-1, .item-2 {
-    align-self: center; 
-    margin: 0;
+/* Tata letak untuk item 1 (kiri) dan item 2 (kanan bawah) */
+.item-1 {
+    align-self: flex-start;
 }
 
 .item-2 {
-    margin-top: 30px; /* Jarak antar item di HP */
+    align-self: flex-end;
+    margin-top: -100px; /* Agak ke bawah dari item 1 */
 }
 
-
-/* ------------------------------------------- */
-/* HARGA (PRICE) - MOBILE */
-/* ------------------------------------------- */
-.price-section {
-    text-align: center;
-    padding: 30px 15px;
-    background-color: rgba(255, 255, 255, 0.7); 
-    border-radius: 15px;
-    margin: 30px auto;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-}
-
-.price-container {
-    margin: 15px 0;
-    cursor: pointer;
-    display: inline-block;
-    padding: 8px 15px;
-    border-radius: 10px;
-    background-color: var(--pink-main); 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.original-price {
-    font-size: 1.2rem;
-    color: var(--text-dark); 
-    text-decoration: line-through;
-    margin-right: 10px;
-    opacity: 0.8;
-}
-
-.discount-price {
-    font-size: 2.5rem; /* Ukuran presisi untuk HP */
-    font-weight: 900; 
-    color: var(--text-light); 
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.small-text {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 5px;
-}
-
-/* ------------------------------------------- */
-/* KONTAK (CONTACT) - MOBILE */
-/* ------------------------------------------- */
-.contact-section {
-    background: linear-gradient(135deg, var(--red-main) 0%, var(--red-dark) 100%);
-    color: var(--text-light);
-    padding: 30px 15px;
-    text-align: center;
-    margin-top: 50px;
-    border-top-left-radius: 15% 40%; 
-    border-top-right-radius: 15% 40%;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.contact-details p {
-    margin: 10px 0;
-    font-size: 1rem;
-}
-
-.whatsapp-button {
-    padding: 12px 25px;
-    margin: 20px 0;
-    font-size: 1rem;
-}
-
-.payment-info {
-    font-size: 0.9rem;
-}
-
-/* =========================================== */
-/* MEDIA QUERY: DESKTOP/LAPTOP (MIN-WIDTH 768PX) */
-/* =========================================== */
+/* Tampilan Desktop (Lebih dari 768px) */
 @media (min-width: 768px) {
-    
-    /* Penyesuaian Header & Judul */
-    .hero-section {
-        padding: 10vh 20px;
-        border-bottom-left-radius: 50% 20%; 
-        border-bottom-right-radius: 50% 20%;
-        margin-bottom: 30px;
-    }
-    
-    .main-title {
-        font-size: clamp(3.5rem, 9vw, 6.5rem);
-    }
-
-    .tagline {
-        font-size: clamp(1.1rem, 3.5vw, 1.8rem);
-    }
-    
-    /* Penyesuaian Main */
-    main {
-        max-width: 1000px;
-        padding: 20px;
-    }
-    
-    .section-title {
-        margin: 60px 0 25px;
-        font-size: 2.5rem;
-    }
-    
-    .info-section p {
-        font-size: 1.15rem;
-        padding: 15px 20px;
-        max-width: 700px;
-    }
-    
-    /* Penyesuaian Product Showcase (Layout Kiri-Kanan) */
     .product-showcase {
-        flex-direction: row; 
+        flex-direction: row;
         justify-content: space-around;
-        padding: 70px 0;
         gap: 0;
-    }
-    
-    .product-item {
-        max-width: 380px;
-        padding: 20px;
-    }
-    
-    .circular-image {
-        width: 280px; 
-        height: 280px;
-        border: 10px solid var(--red-main);
     }
 
     .item-1 {
-        align-self: flex-start; /* Kiri/Atas */
+        align-self: flex-start;
         margin-right: 80px;
     }
     
     .item-2 {
-        align-self: flex-end; /* Kanan/Bawah */
+        align-self: flex-end;
         margin-left: 80px;
         margin-top: 80px;
     }
-    
-    /* Penyesuaian Harga */
-    .price-section {
-        padding: 50px 0;
-    }
-    
-    .price-container {
-        padding: 10px 20px;
-    }
-
-    .original-price {
-        font-size: 1.6rem;
-        margin-right: 20px;
-    }
-
-    .discount-price {
-        font-size: 3.5rem;
-    }
-    
-    /* Penyesuaian Kontak */
-    .contact-section {
-        padding: 50px 20px;
-        border-top-left-radius: 20% 50%;
-        border-top-right-radius: 20% 50%;
-    }
-    
-    .whatsapp-button {
-        padding: 15px 30px; 
-        font-size: 1.1rem;
-    }
 }
 
+
+/* ------------------------------------------- */
+/* HARGA (PRICE) */
+/* ------------------------------------------- */
+.price-section {
+    text-align: center;
+    padding: 50px 0;
+    background-color: rgba(255, 255, 255, 0.7); /* Background transparan */
+    border-radius: 20px;
+    margin: 40px auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.price-container {
+    margin: 25px 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: var(--pink-main); /* Background untuk container harga */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.price-container:hover {
+    background-color: var(--red-main);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.original-price {
+    font-size: 1.6rem;
+    color: var(--text-dark); /* Warna teks lebih gelap */
+    text-decoration: line-through;
+    margin-right: 20px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.discount-price {
+    font-size: 3.5rem;
+    font-weight: 900; /* Sangat tebal */
+    color: var(--text-light); /* Warna teks putih untuk kontras */
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none; /* Hilangkan border */
+    padding: 0;
+}
+
+.price-container:hover .discount-price {
+    color: var(--text-light); /* Tetap putih */
+    transform: scale(1.05);
+}
+
+.price-container:hover .original-price {
+    color: var(--text-light); /* Warna putih saat hover */
+}
+
+
+.small-text {
+    font-size: 1rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* ------------------------------------------- */
+/* KONTAK (CONTACT) */
+/* ------------------------------------------- */
+.contact-section {
+    background: linear-gradient(135deg, var(--red-main) 0%, var(--red-dark) 100%); /* Gradasi di kontak */
+    color: var(--text-light);
+    padding: 50px 20px;
+    text-align: center;
+    margin-top: 70px;
+    border-top-left-radius: 20% 50%; /* Bentuk melengkung unik */
+    border-top-right-radius: 20% 50%;
+    box-shadow: 0 -8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-details p {
+    margin: 12px 0;
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+.whatsapp-button {
+    display: inline-block;
+    background-color: #25d366;
+    color: var(--text-light);
+    padding: 15px 30px; /* Tombol lebih besar */
+    margin: 25px 0;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    font-size: 1.1rem;
+}
+
+.whatsapp-button:hover {
+    background-color: #128c7e;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.payment-info {
+    font-style: italic;
+    opacity: 0.9;
+    font-size: 1rem;
+    margin-top: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
